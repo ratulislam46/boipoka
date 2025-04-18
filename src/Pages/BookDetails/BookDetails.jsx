@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { addToStoreDB } from '../Utility/AddToDB';
 
 const BookDetails = () => {
 
@@ -12,6 +13,14 @@ const BookDetails = () => {
     console.log(singleBook);
 
     const { bookName, image, publisher , rating, review, totalPages, yearOfPublishing, tags } = singleBook;
+
+
+    // read button handle 
+    const handleReadbtn = (bookId) => {
+
+        addToStoreDB(bookId);
+        
+    }
 
 
     return (
@@ -37,7 +46,7 @@ const BookDetails = () => {
                     <p>Year of Publishing : <span className='text-[#00509d] font-bold'>{yearOfPublishing}</span></p>
                     <p>Rating : <span className='text-[#00509d] font-bold'>{rating}</span></p>
                 </div>
-                <button className='p-4 btn mr-8 mt-4'>Read</button>
+                <button onClick={()=> handleReadbtn(bookId)} className='p-4 btn mr-8 mt-4'>Read</button>
                 <button className='btn p-4 mt-4 btn-success text-white'>Wishlist</button>
                 </div>
             </div>

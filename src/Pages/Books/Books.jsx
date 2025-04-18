@@ -14,7 +14,7 @@ const Books = ({ books }) => {
 
 
     // json data handle way - 02 (loader) 
-    console.log(books);
+    // console.log(books);
 
     return (
         <div>

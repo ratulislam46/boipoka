@@ -2,6 +2,12 @@ import React from 'react';
 import { useLoaderData, useParams } from 'react-router';
 import { addToStoreDB } from '../Utility/AddToDB';
 
+// sweetaleart impot 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal)
+
+
 const BookDetails = () => {
 
     const id = useParams();
@@ -12,14 +18,22 @@ const BookDetails = () => {
     const singleBook = data.find(book => book.bookId === bookId);
     console.log(singleBook);
 
-    const { bookName, image, publisher , rating, review, totalPages, yearOfPublishing, tags } = singleBook;
+    const { bookName, image, publisher, rating, review, totalPages, yearOfPublishing, tags } = singleBook;
 
 
     // read button handle 
     const handleReadbtn = (bookId) => {
 
+
+        // set wseetalert2 
+        Swal.fire({
+            title: "Good job!",
+            text: "You added this book your read list!",
+            icon: "success"
+          });
+
         addToStoreDB(bookId);
-        
+
     }
 
 
@@ -34,20 +48,20 @@ const BookDetails = () => {
                 <p className='text-gray-600 text-2xl py-2 my-6 border-y border-solid'>Fiction</p>
                 <div>
                     <h3 className='text-gray-600 my-4 text-xl'> <span className='font-bold text-2xl'>Review </span>: {review}</h3>
-                    <div className="flex justify-start items-center gap-4"> 
+                    <div className="flex justify-start items-center gap-4">
                         <h3 className='my-6'>Tag</h3>
-                    {
-                        tags.map(tag => <button key={singleBook.bookId} className="bg-[#f1faee] text-green-600 py-1 px-4 rounded-md my-6"> #{tag}</button>)
-                    }
-                </div>
-                <div className='text-xl text-gray-600'>
-                    <p>Number of Pages : <span className='text-[#00509d] font-bold'>{totalPages}</span></p>
-                    <p>Publisher : <span className='text-[#00509d] font-bold'>{publisher}</span></p>
-                    <p>Year of Publishing : <span className='text-[#00509d] font-bold'>{yearOfPublishing}</span></p>
-                    <p>Rating : <span className='text-[#00509d] font-bold'>{rating}</span></p>
-                </div>
-                <button onClick={()=> handleReadbtn(bookId)} className='p-4 btn mr-8 mt-4'>Read</button>
-                <button className='btn p-4 mt-4 btn-success text-white'>Wishlist</button>
+                        {
+                            tags.map(tag => <button key={singleBook.bookId} className="bg-[#f1faee] text-green-600 py-1 px-4 rounded-md my-6"> #{tag}</button>)
+                        }
+                    </div>
+                    <div className='text-xl text-gray-600'>
+                        <p>Number of Pages : <span className='text-[#00509d] font-bold'>{totalPages}</span></p>
+                        <p>Publisher : <span className='text-[#00509d] font-bold'>{publisher}</span></p>
+                        <p>Year of Publishing : <span className='text-[#00509d] font-bold'>{yearOfPublishing}</span></p>
+                        <p>Rating : <span className='text-[#00509d] font-bold'>{rating}</span></p>
+                    </div>
+                    <button onClick={() => handleReadbtn(bookId)} className='p-4 btn mr-8 mt-4'>Read</button>
+                    <button className='btn p-4 mt-4 btn-success text-white'>Wishlist</button>
                 </div>
             </div>
         </div>
